@@ -173,9 +173,12 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
 /**
  * getRottenTomatoesScoreByMovie()
  * -----------------------------
- * Transform each movie, returning an array of objects where the key is the title of the movie and the value is the score received from Rotten Tomatoes. If there are no movies, throw an error with a message.
+ * Transform each movie, returning an array of objects where the key is the title of the movie and the 
+ * value is the score received from Rotten Tomatoes. 
+ * If there are no movies, throw an error with a message.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
- * @returns {Object[]|Error} An array of movie objects where the key is the movie title and the value is the score received from Rotten Tomatoes.
+ * @returns {Object[]|Error} An array of movie objects where the key is the movie title and the value is 
+ * the score received from Rotten Tomatoes.
  * 
  * NOTE: You must use both the `.map()` method and the `.find()` method.
  *
@@ -194,7 +197,22 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+function getRottenTomatoesScoreByMovie(movies) {
+  if (movies.length === 0) {
+    throw "There are no movies.";
+  }
+  const result = movies.find((movie) => movie.ratings[movie.ratings[2]]);
+
+  const movieFound = movies.map((movie) => {
+    let obj = {};
+    let movieSource = movie.ratings[1].source;
+    if (movie.ratings.includes(movieSource)) {
+      obj[movie.title] = movie.ratings[1].value;
+      return obj;
+    }
+  });
+  return movieFound;
+}
 
 // Do not change anything below this line.
 module.exports = {
