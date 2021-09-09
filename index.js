@@ -167,6 +167,7 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
       return arr;
     }
   });
+  return result;
 }
 
 /**
