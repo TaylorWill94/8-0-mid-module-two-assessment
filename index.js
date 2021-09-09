@@ -1,5 +1,6 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleMovies` variable below to gain access to an array of movies.
+  Do not change the line below. If you'd like to run code from this file, 
+  you may use the `exampleMovies` variable below to gain access to an array of movies.
 
   Keep in mind that your functions must still have and use a parameter for accepting all movies.
 */
@@ -30,12 +31,21 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+
+function getAllMovieTitles(movies) {
+  if (movies.length === 0) {
+    throw "There is an error";
+  }
+
+  const result = movies.map((movie) => movie.title);
+  return result;
+}
 
 /**
  * checkIfAnyMovieHasRating()
  * -----------------------------
- * Returns a boolean, representing whether or not any of the movies has been given the provided rating. If the inputted `movies` array is empty, throw an error with a message.
+ * Returns a boolean, representing whether or not any of the movies has been given the provided rating.
+ * If the inputted `movies` array is empty, throw an error with a message.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} [rating="G"] - A movie rating. Defaults to "G".
  * @returns {boolean|Error} Returns `true` if a movie exists in the list with the given rating, otherwise returns `false`.
@@ -50,12 +60,20 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+function checkIfAnyMovieHasRating(movies, rating = "G") {
+  if (movies.length === 0) {
+    throw "There are no movies.";
+  }
+
+  const result = movies.some((movie) => movie.rated === rating);
+  return result;
+}
 
 /**
  * findById()
  * -----------------------------
- * Returns a movie object from an array of objects based on the ID. If the inputted `movies` array is empty, throw an error with a message. If the ID does not match any movie, return `null`.
+ * Returns a movie object from an array of objects based on the ID. 
+ * If the inputted `movies` array is empty, throw an error with a message. If the ID does not match any movie, return `null`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} id - A unique `imdbID`.
  * @returns {Object|Error|null} The movie object with the matching `imdbID`.
@@ -68,12 +86,20 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length === 0) {
+    throw "There are no movies.";
+  }
+
+  const result = movies.find((movie) => movie.imdbID === id);
+  return result || null;
+}
 
 /**
  * filterByGenre()
  * -----------------------------
- * Returns all movie objects with a matching genre. Case-insensitive. If the inputted `movies` array is empty, throw an error with a message. If no movies match the inputted `genre`, return `[]`.
+ * Returns all movie objects with a matching genre. Case-insensitive. 
+ * If the inputted `movies` array is empty, throw an error with a message. If no movies match the inputted `genre`, return `[]`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} genre - The genre of a movie. (e.g. "Fantasy")
  * @returns {Object[]|Error} An array of movies where at least one of the genres matches the `genre` inputted.
@@ -92,12 +118,21 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  if (movies.length === 0) {
+    throw "There are no movies.";
+  }
+
+  return movies.filter((movie) =>
+    movie.genre.toLowerCase().includes(genre.toLowerCase())
+  );
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
  * -----------------------------
- * Returns all movie objects with a `released` year equal to or less than the given year. If the movie array is empty, throw an error with a message.
+ * Returns all movie objects with a `released` year equal to or less than the given year. 
+ * If the movie array is empty, throw an error with a message.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {number} year - A year as a number. (e.g. 2000)
  * @returns {Object[]|Error} An array of movies where the `released` year is equal to or less than the inputted year.
@@ -118,7 +153,21 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  if (movies.length === 0) {
+    throw "There is an error.";
+  }
+
+  const result = movies.filter((movie) => {
+    let arr = [];
+    let newArr = movie.released.split(" ");
+    let newNum = Number(newArr[newArr.length - 1]);
+    if (newNum === year || newNum < year) {
+      arr.push(movie);
+      return arr;
+    }
+  });
+}
 
 /**
  * getRottenTomatoesScoreByMovie()
